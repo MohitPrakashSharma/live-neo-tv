@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Channel } from '../types/channel';
 import { PopularChannel } from '../types/popular-channel';
 import { usePopularChannels } from './usePopularChannels';
@@ -9,15 +9,16 @@ export const useSelectedChannel = () => {
   const [selectedChannel, setSelectedChannel] = useState<Channel | PopularChannel | null>(null);
   const { channels: popularChannels, loading } = usePopularChannels();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Auto-select first popular channel on load
+  // Only auto-select first channel if we're on the home page
   useEffect(() => {
-    if (!loading && popularChannels.length > 0 && !selectedChannel) {
+    if (!loading && popularChannels.length > 0 && !selectedChannel && location.pathname === '/') {
       const firstChannel = popularChannels[0];
       setSelectedChannel(firstChannel);
       navigate(`/${generateSlug(firstChannel.channel_name)}`);
     }
-  }, [popularChannels, loading, selectedChannel, navigate]);
+  }, [popularChannels, loading, selectedChannel, navigate, location.pathname]);
 
   const handleChannelSelect = useCallback((channelId: string, channelName: string) => {
     // Find channel in popular channels first

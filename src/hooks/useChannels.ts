@@ -18,7 +18,7 @@ export const useChannels = (language: string) => {
       setLoading(true);
       setError(null);
       const data = await fetchChannels(language);
-      setChannels(data);
+      setChannels(data || []);
     } catch (err) {
       setError('Failed to load channels');
       setChannels([]);
@@ -27,13 +27,22 @@ export const useChannels = (language: string) => {
     }
   }, [language]);
 
+  // Reset state when language changes
+  useEffect(() => {
+    setChannels([]);
+    setLoading(true);
+    setError(null);
+  }, [language]);
+
+  // Load channels when language changes or component mounts
   useEffect(() => {
     loadChannels();
-  }, [loadChannels]);
+  }, [loadChannels, language]);
 
-  const refetch = () => {
-    loadChannels();
+  return { 
+    channels, 
+    loading, 
+    error,
+    refetch: loadChannels
   };
-
-  return { channels, loading, error, refetch };
 };

@@ -22,11 +22,13 @@ export const ProgramGuide = ({
 
   useEffect(() => {
     if (!loading && categories.length > 0 && !selectedCategory) {
-      onCategorySelect(categories[0].id.toString());
+      onCategorySelect(categories[0].insert_language);
     }
   }, [categories, loading, selectedCategory, onCategorySelect]);
 
-  const selectedCategoryData = categories.find(c => c.id.toString() === selectedCategory);
+  const selectedCategoryData = categories.find(c => 
+    c.id.toString() === selectedCategory || c.insert_language === selectedCategory
+  );
   const categoryName = selectedCategoryData?.insert_language || initialCategory;
 
   return (
@@ -50,6 +52,7 @@ export const ProgramGuide = ({
             isExpanded={isExpanded}
           />
           <ChannelList
+            key={categoryName} // Add key to force remount when category changes
             selectedCategory={selectedCategory}
             selectedChannel={selectedChannel}
             onChannelSelect={onChannelSelect}

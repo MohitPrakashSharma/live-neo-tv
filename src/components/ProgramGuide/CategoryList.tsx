@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { ListFilter, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ListFilter, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { CategoryItem } from './CategoryItem';
 import { useCategories } from '../../hooks/useCategories';
+import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
 
 interface CategoryListProps {
   selectedCategory: string;
@@ -16,19 +17,21 @@ export const CategoryList = ({
 }: CategoryListProps) => {
   const { categories, loading, error } = useCategories();
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
-  const [isScrolledToTop, setIsScrolledToTop] = useState(true);
-  const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
+  const { scrollRef, scrollLeft, scrollRight, canScrollLeft, canScrollRight } = useHorizontalScroll();
+  const [isHovering, setIsHovering] = useState(false);
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    const target = e.currentTarget;
-    const isTop = target.scrollTop === 0;
-    const isBottom = Math.abs(target.scrollHeight - target.scrollTop - target.clientHeight) < 1;
-    
-    setIsScrolledToTop(isTop);
-    setIsScrolledToBottom(isBottom);
-  };
+  // Auto-select first category if none is selected
+  useEffect(() => {
+    if (!loading && categories.length > 0 && !selectedCategory) {
+      const firstCategory = categories[0];
+      onCategorySelect(firstCategory.insert_language);
+    }
+  }, [categories, loading, selectedCategory, onCategorySelect]);
 
-  const selectedCategoryData = categories.find(c => c.id.toString() === selectedCategory);
+  // Find selected category by ID or language
+  const selectedCategoryData = categories.find(c => 
+    c.id.toString() === selectedCategory || c.insert_language === selectedCategory
+  );
 
   if (loading) {
     return (
@@ -80,60 +83,86 @@ export const CategoryList = ({
           <h2 className="text-lg font-semibold">Categories</h2>
         </div>
 
-        {/* Categories List - Mobile */}
-        <div className={`md:hidden transition-all duration-200 ease-in-out ${
-          isAccordionOpen ? 'max-h-[40vh]' : 'max-h-0'
-        } overflow-y-auto scrollbar-hide`}>
-          <div className="py-2 grid grid-cols-2 gap-1 p-1">
+        {/* Categories List */}
+        <div 
+          className={`relative md:block transition-all duration-200 ease-in-out ${
+            isAccordionOpen ? 'block' : 'hidden'
+          }`}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        >
+          {/* Horizontal Scroll Container for Mobile */}
+          <div 
+            ref={scrollRef}
+            className="md:hidden flex overflow-x-auto scrollbar-hide scroll-smooth gap-2 p-4"
+          >
             {categories.map((category) => (
-              <CategoryItem
-                key={category.id}
-                category={{
-                  id: category.id.toString(),
-                  name: category.insert_language,
-                  image: category.image
-                }}
-                isSelected={selectedCategory === category.id.toString()}
-                onSelect={(id) => {
-                  onCategorySelect(id);
-                  setIsAccordionOpen(false);
-                }}
-              />
+              <div key={category.id} className="flex-shrink-0">
+                <CategoryItem
+                  category={{
+                    id: category.insert_language,
+                    name: category.insert_language,
+                    image: category.image
+                  }}
+                  isSelected={selectedCategory === category.id.toString() || 
+                             selectedCategory === category.insert_language}
+                  onSelect={(id) => {
+                    onCategorySelect(id);
+                    setIsAccordionOpen(false);
+                  }}
+                />
+              </div>
             ))}
           </div>
-        </div>
 
-        {/* Categories List - Desktop */}
-        <div className="relative hidden md:block">
-          {/* Scroll Gradient - Top */}
-          <div className={`absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-[#1e1e1e] to-transparent z-10 pointer-events-none transition-opacity duration-200 ${
-            isScrolledToTop ? 'opacity-0' : 'opacity-100'
-          }`} />
-
-          <div 
-            className="max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-hide"
-            onScroll={handleScroll}
-          >
+          {/* Vertical List for Desktop */}
+          <div className="hidden md:block max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-hide">
             <div className="py-2 space-y-1 p-1">
               {categories.map((category) => (
                 <CategoryItem
                   key={category.id}
                   category={{
-                    id: category.id.toString(),
+                    id: category.insert_language,
                     name: category.insert_language,
                     image: category.image
                   }}
-                  isSelected={selectedCategory === category.id.toString()}
-                  onSelect={onCategorySelect}
+                  isSelected={selectedCategory === category.id.toString() || 
+                             selectedCategory === category.insert_language}
+                  onSelect={(id) => {
+                    onCategorySelect(id);
+                    setIsAccordionOpen(false);
+                  }}
                 />
               ))}
             </div>
           </div>
 
-          {/* Scroll Gradient - Bottom */}
-          <div className={`absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-[#1e1e1e] to-transparent z-10 pointer-events-none transition-opacity duration-200 ${
-            isScrolledToBottom ? 'opacity-0' : 'opacity-100'
-          }`} />
+          {/* Mobile Scroll Buttons */}
+          <div className="md:hidden">
+            {canScrollLeft && (
+              <button
+                onClick={scrollLeft}
+                className={`absolute left-0 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-r-lg transition-opacity ${
+                  isHovering ? 'opacity-100' : 'opacity-0'
+                }`}
+                aria-label="Scroll left"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+            )}
+
+            {canScrollRight && (
+              <button
+                onClick={scrollRight}
+                className={`absolute right-0 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-l-lg transition-opacity ${
+                  isHovering ? 'opacity-100' : 'opacity-0'
+                }`}
+                aria-label="Scroll right"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
