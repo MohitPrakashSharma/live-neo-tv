@@ -19,8 +19,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
     const updateHeight = () => {
       if (containerRef.current) {
         const width = containerRef.current.offsetWidth;
-        // Even more reduced height ratio for a more compact player
-        const height = width * (9/32); // Further reduced ratio for shorter height
+        const height = width * (9/32); // Compact ratio
         containerRef.current.style.height = `${height}px`;
       }
     };
@@ -56,6 +55,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
         fluid: false,
         aspectRatio: '32:9',
         autoplay: true,
+        muted: true,
         preload: 'auto',
         html5: {
           hls: {
@@ -82,16 +82,14 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
   }, [channel?.stream_url]);
 
   return (
-    <div className="fixed top-16 left-0 right-0 w-full z-30">
-      <div className="bg-black">
-        <div 
-          ref={containerRef}
-          className="relative w-full"
-          style={{ aspectRatio: '32/9' }}
-        >
-          <div ref={videoRef} className="absolute inset-0">
-            {(!channel || !channel.stream_url) && <LoaderOverlay />}
-          </div>
+    <div className="fixed top-16 left-0 right-0 w-full bg-black z-20">
+      <div 
+        ref={containerRef}
+        className="relative w-full"
+        style={{ height: '160px' }}
+      >
+        <div ref={videoRef} className="absolute inset-0">
+          {(!channel || !channel.stream_url) && <LoaderOverlay />}
         </div>
       </div>
       

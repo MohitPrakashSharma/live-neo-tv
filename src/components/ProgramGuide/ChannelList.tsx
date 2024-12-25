@@ -48,7 +48,7 @@ export const ChannelList = ({
   return (
     <div className={`flex-1 transition-all duration-300 ${
       isExpanded ? 'max-h-[calc(100vh-100px)]' : 'max-h-[calc(100vh-500px)]'
-    } overflow-y-auto scrollbar-hide`}>
+    } scrollbar-hide`}>
       <div className="space-y-3 pb-8">
         {channels.map((channel) => (
           <ChannelItem
