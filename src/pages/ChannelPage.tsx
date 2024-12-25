@@ -21,7 +21,6 @@ export const ChannelPage = () => {
           const channel = await fetchChannelByName(channelName);
           if (channel) {
             setSelectedChannel(channel);
-            // Set the category based on the channel's language
             if (channel.add_language) {
               setSelectedCategory(channel.add_language);
             }
@@ -50,7 +49,7 @@ export const ChannelPage = () => {
     <main>
       <VideoPlayer channel={selectedChannel} />
       
-      <div className="mt-[300px] md:mt-[380px] lg:mt-[440px]">
+      <div className="mt-[180px] md:mt-[200px] lg:mt-[220px]">
         <div className="mt-8 md:mt-12 pt-16 md:pt-20 mb-8">
           <PopularChannelsGrid onChannelSelect={handleChannelSelect} />
         </div>

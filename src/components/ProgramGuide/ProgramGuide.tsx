@@ -35,7 +35,7 @@ export const ProgramGuide = ({
     <div
       ref={containerRef}
       className={`transition-all duration-300 ease-in-out ${
-        isExpanded ? 'fixed top-[314px] md:top-[364px] lg:top-[464px] left-0 right-0 bottom-0 bg-[#1a1a1a]' : ''
+        isExpanded ? 'fixed top-[264px] md:top-[284px] lg:top-[324px] left-0 right-0 bottom-0 bg-[#1a1a1a]' : ''
       }`}
       style={{ 
         zIndex: isExpanded ? 40 : 1,
@@ -52,7 +52,7 @@ export const ProgramGuide = ({
             isExpanded={isExpanded}
           />
           <ChannelList
-            key={categoryName} // Add key to force remount when category changes
+            key={categoryName}
             selectedCategory={selectedCategory}
             selectedChannel={selectedChannel}
             onChannelSelect={onChannelSelect}
