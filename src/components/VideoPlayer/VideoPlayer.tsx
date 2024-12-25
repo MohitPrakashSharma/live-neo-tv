@@ -50,10 +50,17 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
       videoRef.current.innerHTML = '';
       videoRef.current.appendChild(videoElement);
 
+      let aspectRatio;
+      if (window.innerWidth >= 768) {
+        aspectRatio = '32:9'; // Tablet and desktop
+      } else {
+        aspectRatio = '12:9'; // Mobile
+      }
+
       const player = videojs(videoElement, {
         controls: true,
         fluid: false,
-        aspectRatio: '32:9',
+        aspectRatio: aspectRatio,
         autoplay: true,
         muted: true,
         preload: 'auto',
@@ -98,10 +105,10 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
           <div className="container mx-auto px-4">
             <h2 className="text-sm md:text-base font-semibold truncate">
               <span className="text-[#e40876]">Now Watching: </span>
-              {channel.channel_name}
+              {channel.channel_name} 
             </h2>
             <p className="text-xs text-gray-400">
-              {channel.add_language} • {channel.plan_name}
+              {channel.add_language}  
             </p>
           </div>
         </div>

@@ -11,7 +11,8 @@ interface ChannelItemProps {
 export const ChannelItem = ({ channel, isSelected, onSelect }: ChannelItemProps) => {
   return (
     <div className={`group transition-all duration-200 transform ${
-      isSelected ? 'scale-[1.02]' : 'hover:scale-[1.01]'
+      // isSelected ? 'scale-[1.02]' : 'hover:scale-[1.01]'
+      isSelected ? '' : 'hover:scale-[1.01]'
     }`}>
       <div className={`flex items-center gap-4 p-4 bg-[#262626] rounded-lg transition-colors ${
         isSelected ? 'border-2 border-[#e40876]' : ''
@@ -35,7 +36,7 @@ export const ChannelItem = ({ channel, isSelected, onSelect }: ChannelItemProps)
             {channel.channel_name}
           </h3>
           <p className="text-sm text-gray-400">
-            {channel.plan_name} - ₹{channel.plan_price}
+            {channel.add_language}
           </p>
         </div>
       </div>
