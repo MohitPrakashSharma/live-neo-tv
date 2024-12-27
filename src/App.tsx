@@ -7,6 +7,7 @@ import { MetaTags } from './components/SEO/MetaTags';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { fetchChannelByName } from './services/api';
 import { reverseSlug } from './utils/slug';
+import Sitemap from './pages/Sitemap';
 
 export const App = () => {
   const [metaData, setMetaData] = useState({
@@ -81,12 +82,11 @@ export const App = () => {
             canonicalUrl={metaData.canonicalUrl}
             ogImage={metaData.ogImage}
           />
-          <Header />
-
+          <Header /> 
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/:channelSlug" element={<ChannelPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />  
           </Routes>
         </div>
       </Router>

@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-sitemap": "node sitemap-builder.js"
   },
   "dependencies": {
     "@videojs/themes": "^1.0.1",
@@ -16,6 +17,7 @@
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.4",
     "react-router-dom": "^6.22.3",
+    "react-router-sitemap": "^1.2.0",
     "swiper": "^11.1.15",
     "video.js": "^8.21.0",
     "videojs-contrib-ads": "^7.5.2",
