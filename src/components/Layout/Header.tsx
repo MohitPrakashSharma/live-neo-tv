@@ -61,7 +61,9 @@ export const Header = () => {
 
 					{/* Desktop navigation */}
 					<div className="hidden md:flex items-center gap-4">
-						<IconButton icon={Home} label="Home" showLabel />
+						<Link to="/" className="">
+							<IconButton icon={Home} label="Home" showLabel />
+						</Link>
 						<IconButton icon={Tv} label="Live TV" active showLabel />
 						<IconButton
 							icon={PlaySquare}
@@ -69,11 +71,13 @@ export const Header = () => {
 							showLabel
 							onClick={handlePlayStore}
 						/>
-						<IconButton
-							icon={User}
-							label="My Account"
-							showLabel
-						/>
+						<Link to="https://myaccount.neotvapp.com/">
+							<IconButton
+								icon={User}
+								label="My Account"
+								showLabel
+							/>
+						</Link>
 					</div>
 				</div>
 			</header>
