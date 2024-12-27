@@ -4,6 +4,7 @@ import 'video.js/dist/video-js.css';
 import 'videojs-contrib-ads';
 import 'videojs-ima';
 import 'videojs-ima/dist/videojs.ima.css';
+import '@videojs/themes/dist/fantasy/index.css';
 import type { Channel } from '../../types/channel';
 import type { PopularChannel } from '../../types/popular-channel';  
 import { VideoPlayerSkeleton } from '../Skeletons/VideoPlayerSkeleton';
@@ -146,7 +147,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
           className="relative w-full"
           style={{ aspectRatio: '32/9' }}
         >
-          <div ref={videoRef} className="absolute inset-0"></div>
+          <div ref={videoRef} className="absolute inset-0 video-js vjs-theme-fantasy"></div>
         </div>
       </div>
 

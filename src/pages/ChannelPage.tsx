@@ -12,28 +12,6 @@ export const ChannelPage = () => {
 	const navigate = useNavigate();
 	const { selectedChannel, setSelectedChannel } = useSelectedChannel();
 	const [selectedCategory, setSelectedCategory] = useState<string>('');
-	const [paddingTop, setPaddingTop] = useState('11rem');
-
-	useEffect(() => {
-		const updatePadding = () => {
-			const width = window.innerWidth;
-			if (width >= 1440) {
-				setPaddingTop('26rem');
-			} else if (width >= 1024 && width < 1440) {
-				setPaddingTop('23rem');
-			} else if (width >= 768 && width < 1024) {
-				setPaddingTop('18rem');
-			} else {
-				setPaddingTop('11rem');
-			}
-		};
-
-
-		updatePadding(); // Set initial value
-		window.addEventListener('resize', updatePadding);
-
-		return () => window.removeEventListener('resize', updatePadding);
-	}, []);
 
 	useEffect(() => {
 		const loadChannel = async () => {
@@ -72,7 +50,7 @@ export const ChannelPage = () => {
 			<VideoPlayer channel={selectedChannel} />
 
 			<div className="mt-[180px] md:mt-[200px] lg:mt-[220px]">
-				<div className="mt-8 md:mt-12 pt-16 md:pt-20 mb-8" style={{ paddingTop }}>
+				<div className="mt-8 md:mt-12 pt-[11rem] md:pt-[18rem] lg:pt-[23rem] xl:pt-[26rem] mb-8">
 					<PopularChannelsGrid onChannelSelect={handleChannelSelect} />
 				</div>
 
