@@ -10,7 +10,7 @@ export default {
         xxl: '1997px', // Custom breakpoint for extra-extra-large screens
       },
       spacing: {
-        '29rem': '29rem', // Add spacing for 29rem if not available
+        '56rem': '56rem', // Add spacing for 29rem if not available
       },
     },
   },
