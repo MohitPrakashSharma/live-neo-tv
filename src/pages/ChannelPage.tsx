@@ -16,12 +16,20 @@ export const ChannelPage = () => {
 
   useEffect(() => {
     const updatePadding = () => {
-      if (window.innerWidth >= 768) {
-        setPaddingTop('23rem'); // Tablet and desktop
+      const width = window.innerWidth;
+      if (width >= 1440) {
+        setPaddingTop('23rem');
+      } else if (width >= 1024 && width < 1440) {
+        setPaddingTop('20rem'); // Adjust the padding value as needed
+      } else if (width >= 768 && width < 1024) {
+        // Tablet
+        setPaddingTop('18rem'); // Adjust the padding value as needed
       } else {
-        setPaddingTop('11rem'); // Mobile
+        // Mobile
+        setPaddingTop('11rem');
       }
     };
+    
 
     updatePadding(); // Set initial value
     window.addEventListener('resize', updatePadding);
