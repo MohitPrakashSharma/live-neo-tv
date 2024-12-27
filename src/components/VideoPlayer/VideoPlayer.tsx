@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
+import 'videojs-contrib-ads';
+import 'videojs-ima';
+import 'videojs-ima/dist/videojs.ima.css';
 import type { Channel } from '../../types/channel';
 import type { PopularChannel } from '../../types/popular-channel';
 import { LoaderOverlay } from './LoaderOverlay';
@@ -14,13 +17,24 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
   const playerRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Load the IMA SDK dynamically
+  useEffect(() => {
+    if (!window.google || !window.google.ima) {
+      const script = document.createElement('script');
+      script.src = 'https://imasdk.googleapis.com/js/sdkloader/ima3.js';
+      script.async = true;
+      script.onload = () => console.log('IMA SDK loaded');
+      script.onerror = () => console.error('Failed to load IMA SDK');
+      document.head.appendChild(script);
+    }
+  }, []);
+
   // Calculate and set container height based on aspect ratio
   useEffect(() => {
     const updateHeight = () => {
       if (containerRef.current) {
         const width = containerRef.current.offsetWidth;
-        // Even more reduced height ratio for a more compact player
-        const height = width * (9/32); // Further reduced ratio for shorter height
+        const height = width * (9 / 32);
         containerRef.current.style.height = `${height}px`;
       }
     };
@@ -51,35 +65,50 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
       videoRef.current.innerHTML = '';
       videoRef.current.appendChild(videoElement);
 
-      let aspectRatio;
-      if (window.innerWidth >= 768) {
-        aspectRatio = '32:9'; // Tablet and desktop
-      } else {
-        aspectRatio = '12:9'; // Mobile
-      }
-
       const player = videojs(videoElement, {
         controls: true,
         fluid: false,
-        aspectRatio: aspectRatio,
+        aspectRatio: '32:9',
         autoplay: true,
+        muted:true,
         preload: 'auto',
         html5: {
           hls: {
             enableLowInitialPlaylist: true,
             smoothQualityChange: true,
             overrideNative: true,
-          }
-        }
+          },
+        },
       });
 
-      player.src({
-        src: channel.stream_url,
-        type: 'application/x-mpegURL'
+      // Configure IMA ads
+      const imaOptions = {
+        adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=',
+        debug: false,
+      };
+      player.ima(imaOptions);
+
+      // Initialize and request ads
+      try {
+        player.ima.initializeAdDisplayContainer();
+        player.ima.requestAds();
+      } catch (error) {
+        player.src({ src: channel.stream_url, type: 'application/x-mpegURL' });
+        player.play();
+      }
+
+      // Handle ad errors
+      player.on('adserror', () => {
+        console.warn('Ad failed to load. Playing live stream.');
+        player.src({ src: channel.stream_url, type: 'application/x-mpegURL' });
+        player.play();
       });
 
-      player.play().catch(error => {
-        console.warn('Autoplay prevented:', error);
+      // Play the main video after ads
+      player.on('ads-ad-ended', () => {
+        console.log('Ad ended. Playing live stream.');
+        player.src({ src: channel.stream_url, type: 'application/x-mpegURL' });
+        player.play();
       });
 
       playerRef.current = player;
@@ -91,7 +120,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
   return (
     <div className="fixed top-16 left-0 right-0 w-full z-30">
       <div className="bg-black">
-        <div 
+        <div
           ref={containerRef}
           className="relative w-full"
           style={{ aspectRatio: '32/9' }}
@@ -101,16 +130,16 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
           </div>
         </div>
       </div>
-      
+
       {channel && (
         <div className="bg-[#262626] py-1.5 px-2">
           <div className="container mx-auto px-4">
             <h2 className="text-sm md:text-base font-semibold truncate">
               <span className="text-[#e40876]">Now Watching: </span>
-              {channel.channel_name} 
+              {channel.channel_name}
             </h2>
             <p className="text-xs text-gray-400">
-              {channel.add_language}  
+              {channel.add_language}
             </p>
           </div>
         </div>
