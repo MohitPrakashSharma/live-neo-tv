@@ -16,7 +16,7 @@ export const useSelectedChannel = () => {
     if (!loading && popularChannels.length > 0 && !selectedChannel && location.pathname === '/') {
       const firstChannel = popularChannels[0];
       setSelectedChannel(firstChannel);
-      navigate(`/${generateSlug(firstChannel.channel_name)}`);
+      // navigate(`/${generateSlug(firstChannel.channel_name)}`);
     }
   }, [popularChannels, loading, selectedChannel, navigate, location.pathname]);
 
@@ -25,7 +25,7 @@ export const useSelectedChannel = () => {
     const channel = popularChannels.find(c => c.id === channelId);
     if (channel) {
       setSelectedChannel(channel);
-      navigate(`/${generateSlug(channelName)}`);
+      // navigate(`/${generateSlug(channelName)}`);
       return;
     }
 
