@@ -20,7 +20,7 @@ export const HomePage = () => {
       } else {
         setPaddingTop('11rem'); // Mobile
       }
-    };
+    }; 
 
     updatePadding(); // Set initial value
     window.addEventListener('resize', updatePadding);
