@@ -27,7 +27,7 @@ export const VideoPlayerSkeleton = () => {
                 </div>
             </div>
             <div className="bg-[#262626] py-1.5 px-2">
-                <div className="container mx-auto px-4">
+                <div className="container-fluid mx-auto px-4">
                     <div className="h-4 w-3/4 bg-gray-700 rounded animate-pulse mb-1"></div>
                     <div className="h-3 w-1/2 bg-gray-700 rounded animate-pulse"></div>
                 </div>

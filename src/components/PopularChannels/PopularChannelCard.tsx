@@ -10,7 +10,7 @@ interface PopularChannelCardProps {
 export const PopularChannelCard = ({ channel, onPlay }: PopularChannelCardProps) => {
   let aspectHeight;
   if (window.innerWidth >= 768) {
-    aspectHeight = "11rem";  
+    aspectHeight = "8rem";  
   } else {
     aspectHeight = "5rem";  
   }

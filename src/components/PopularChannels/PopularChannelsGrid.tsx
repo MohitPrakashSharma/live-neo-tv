@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { Flame } from 'lucide-react';
+import React from 'react';
+import { Flame, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/navigation';
 import { PopularChannelCard } from './PopularChannelCard';
 import { usePopularChannels } from '../../hooks/usePopularChannels';
 import { PopularChannelsSkeleton } from '../Skeletons/PopularChannelsSkeleton';
@@ -36,18 +38,26 @@ export const PopularChannelsGrid = ({ onChannelSelect }: PopularChannelsGridProp
 
   return (
     <div className="relative px-4 py-4">
+      {/* Section Title */}
       <div className="flex items-center justify-center gap-2 mb-4">
         <Flame className="w-5 h-5 md:w-6 md:h-6 text-[#e40876]" />
         <h2 className="text-lg md:text-xl font-bold">Popular Now</h2>
       </div>
+
+      {/* Swiper Slider */}
       <Swiper
         spaceBetween={10}
         slidesPerView={4}
         breakpoints={{
           768: { slidesPerView: 3, spaceBetween: 15 },
-          1024: { slidesPerView: 4, spaceBetween: 20 },
-          1440: { slidesPerView: 5, spaceBetween: 25 },
+          1024: { slidesPerView: 7, spaceBetween: 20 },
+          1440: { slidesPerView: 7, spaceBetween: 25 },
         }}
+        navigation={{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }}
+        modules={[Navigation]}
         className="overflow-hidden"
       >
         {channels.map((channel) => (

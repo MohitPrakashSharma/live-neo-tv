@@ -42,7 +42,7 @@ export const ProgramGuide = ({
         transform: `translateY(${isLocked ? '0' : 'translateY(0)'})`,
       }}
     >
-      <div className={`container mx-auto px-4 transition-all duration-300 ${
+      <div className={`container-fluid mx-auto px-4 transition-all duration-300 ${
         isExpanded ? 'max-w-full md:max-w-[90%]' : ''
       }`}>
         <div className="flex flex-col md:flex-row gap-4 md:gap-6">
