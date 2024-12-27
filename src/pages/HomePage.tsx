@@ -23,7 +23,7 @@ export const HomePage = () => {
 			} else if (width >= 1997 && width < 2560) {
 				setPaddingTop('25rem'); // Wide screens
 			} else if (width >= 1440 && width < 1997) {
-				setPaddingTop('23rem'); // Desktop screens
+				setPaddingTop('25rem'); // Desktop screens
 			} else if (width >= 1024 && width < 1440) {
 				setPaddingTop('20rem'); // Small desktop or tablets
 			} else if (width >= 768 && width < 1024) {
@@ -57,8 +57,8 @@ export const HomePage = () => {
 		<main>
 			<VideoPlayer channel={selectedChannel} />
 
-			<div className="mt-[180px] md:mt-[200px] lg:mt-[220px]">
-				<div className="mt-8 md:mt-12 pt-[11rem] md:pt-[18rem] lg:pt-[23rem] xl:pt-[26rem] mb-8" style={{ paddingTop }}>
+			<div className="mt-[180px] md:mt-[200px] lg:mt-[220px]" style={{ paddingTop }}>
+				<div className="mt-8 md:mt-12 pt-[11rem] md:pt-[18rem] lg:pt-[23rem] xl:pt-[26rem] mb-8">
 					<PopularChannelsGrid onChannelSelect={handleChannelSelect} />
 				</div>
 

@@ -77,8 +77,8 @@ export const ChannelPage = () => {
 		<main>
 			<VideoPlayer channel={selectedChannel} />
 
-			<div className="mt-[180px] md:mt-[200px] lg:mt-[220px]" >
-				<div className="mt-8 md:mt-12 pt-[11rem] md:pt-[18rem] lg:pt-[23rem] xl:pt-[26rem] mb-8" style={{ paddingTop }}>
+			<div className="mt-[180px] md:mt-[200px] lg:mt-[220px]" style={{ paddingTop }}>
+				<div className="mt-8 md:mt-12 pt-[11rem] md:pt-[18rem] lg:pt-[23rem] xl:pt-[26rem] mb-8">
 					<PopularChannelsGrid onChannelSelect={handleChannelSelect} />
 				</div>
 
