@@ -34,11 +34,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
     const updateHeight = () => {
       if (containerRef.current) {
         const width = containerRef.current.offsetWidth;
-<<<<<<< HEAD
-        const height = width * (9/32); // Compact ratio
-=======
         const height = width * (9 / 32);
->>>>>>> 2a073e3983d2e1d520236bb6be0830b00a64a6b5
         containerRef.current.style.height = `${height}px`;
       }
     };
