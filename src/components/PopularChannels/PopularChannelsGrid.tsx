@@ -5,6 +5,7 @@ import { useHorizontalScroll } from '../../hooks/useHorizontalScroll';
 import { usePopularChannels } from '../../hooks/usePopularChannels';
 import { LoadingSpinner } from '../LoadingSpinner';
 import { ErrorMessage } from '../ErrorMessage';
+import { PopularChannelsSkeleton } from '../Skeletons/PopularChannelsSkeleton';
 
 interface PopularChannelsGridProps {
   onChannelSelect: (channelId: string, channelName: string) => void;
@@ -18,11 +19,7 @@ export const PopularChannelsGrid = ({ onChannelSelect }: PopularChannelsGridProp
   if (loading) {
     return (
       <div className="px-4 py-4">
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <Flame className="w-5 h-5 md:w-6 md:h-6 text-[#e40876]" />
-          <h2 className="text-lg md:text-xl font-bold">Popular Now</h2>
-        </div>
-        <LoadingSpinner />
+        <PopularChannelsSkeleton />
       </div>
     );
   }

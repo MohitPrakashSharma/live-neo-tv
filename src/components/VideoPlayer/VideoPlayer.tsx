@@ -5,8 +5,8 @@ import 'videojs-contrib-ads';
 import 'videojs-ima';
 import 'videojs-ima/dist/videojs.ima.css';
 import type { Channel } from '../../types/channel';
-import type { PopularChannel } from '../../types/popular-channel';
-import { LoaderOverlay } from './LoaderOverlay';
+import type { PopularChannel } from '../../types/popular-channel';  
+import { VideoPlayerSkeleton } from '../Skeletons/VideoPlayerSkeleton';
 
 interface VideoPlayerProps {
   channel: Channel | PopularChannel | null;
@@ -70,7 +70,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
         fluid: false,
         aspectRatio: '32:9',
         autoplay: true,
-        muted:true,
+        muted: true,
         preload: 'auto',
         html5: {
           hls: {
@@ -117,6 +117,10 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
     return cleanup;
   }, [channel?.stream_url]);
 
+  if (!channel || !channel.stream_url) {
+    return <VideoPlayerSkeleton />;
+  }
+
   return (
     <div className="fixed top-16 left-0 right-0 w-full z-30">
       <div className="bg-black">
@@ -125,9 +129,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
           className="relative w-full"
           style={{ aspectRatio: '32/9' }}
         >
-          <div ref={videoRef} className="absolute inset-0">
-            {(!channel || !channel.stream_url) && <LoaderOverlay />}
-          </div>
+          <div ref={videoRef} className="absolute inset-0"></div>
         </div>
       </div>
 
