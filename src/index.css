@@ -87,3 +87,14 @@
 .program-guide-transition {
   transition: all 0.3s ease-in-out;
 }
+
+
+.container{
+  width: 100% !important;
+}
+
+@media (min-width: 1536px) {
+  .container{
+    width: 100% !important;
+  }
+}

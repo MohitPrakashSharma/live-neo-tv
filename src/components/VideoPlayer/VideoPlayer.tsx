@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import 'videojs-contrib-ads';
@@ -26,7 +26,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
       script.onload = () => console.log('IMA SDK loaded');
       script.onerror = () => console.error('Failed to load IMA SDK');
       document.head.appendChild(script);
-    }
+    } 
   }, []);
 
   // Calculate and set container height based on aspect ratio
@@ -34,7 +34,16 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
     const updateHeight = () => {
       if (containerRef.current) {
         const width = containerRef.current.offsetWidth;
-        const height = width * (9 / 32);
+
+        let aspectRatioValue;
+        if (window.innerWidth >= 768) {
+          aspectRatioValue = '32:9'; // Tablet and desktop
+        } else {
+          aspectRatioValue = '16:9'; // Mobile
+        }
+        const [widthRatio, heightRatio] = aspectRatioValue.split(':').map(Number);
+        const height = width * (heightRatio / widthRatio);
+ 
         containerRef.current.style.height = `${height}px`;
       }
     };
@@ -64,12 +73,20 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
       videoElement.classList.add('vjs-big-play-centered');
       videoRef.current.innerHTML = '';
       videoRef.current.appendChild(videoElement);
+      let aspectRatio;
+      if (window.innerWidth >= 768) {
+        aspectRatio = '32:9'; // Tablet and desktop
+      } else {
+        aspectRatio = '16:9'; // Mobile
+      }
+
 
       const player = videojs(videoElement, {
         controls: true,
         fluid: false,
-        aspectRatio: '32:9',
+        aspectRatio: aspectRatio,
         autoplay: true,
+        playsinline: true,
         muted: true,
         preload: 'auto',
         html5: {
