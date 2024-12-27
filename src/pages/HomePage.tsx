@@ -28,7 +28,7 @@ export const HomePage = () => {
     <main>
       <VideoPlayer channel={selectedChannel} />
       
-      <div className="mt-[240px] md:mt-[280px] lg:mt-[320px]">
+      <div className="mt-[300px] md:mt-[380px] lg:mt-[440px]">
         <div className="mt-8 md:mt-12 pt-16 md:pt-20 mb-8">
           <PopularChannelsGrid onChannelSelect={handleChannelSelect} />
         </div>
