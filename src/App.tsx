@@ -70,7 +70,7 @@ export const App = () => {
         <p>Loading...</p>
       </div>
     );
-  }
+  } 
 
   return (
     <ErrorBoundary>
