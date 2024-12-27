@@ -5,7 +5,13 @@ export default {
     extend: {
       colors: {
         primary: '#e40876',
-      }
+      },
+      screens: {
+        xxl: '1997px', // Custom breakpoint for extra-extra-large screens
+      },
+      spacing: {
+        '29rem': '29rem', // Add spacing for 29rem if not available
+      },
     },
   },
   plugins: [],
