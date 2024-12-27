@@ -100,7 +100,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
 
       // Configure IMA ads
       const imaOptions = {
-        adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=',
+        adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/106213651,121324381/NeoTv_App_Khabriya_Vast_Video&description_url=https%3A%2F%2Fneotvapp.com&tfcd=0&npa=0&sz=1x1%7C400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&idtype=adid&an=Neo%20TV&msid=com.playerhd.hdvideodownloader',
         debug: false,
       };
       player.ima(imaOptions);

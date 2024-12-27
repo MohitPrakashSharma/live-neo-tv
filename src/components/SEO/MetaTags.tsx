@@ -13,15 +13,15 @@ export const MetaTags = ({
   title,
   description,
   canonicalUrl,
-  ogImage = "https://neotvapp.com/wp-content/uploads/2024/09/neo-tv-banner.jpg"
+  ogImage
 }: MetaTagsProps) => {
   return (
     <Helmet>
       {/* Basic Meta Tags */}
       <title>{title}</title>
+      <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
       <meta name="description" content={description} />
-      <link rel="canonical" href={canonicalUrl} />
-
+      <link rel="canonical" href={canonicalUrl} /> 
       {/* Open Graph Meta Tags */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
