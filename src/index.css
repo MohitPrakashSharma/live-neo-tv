@@ -98,3 +98,38 @@
     width: 100% !important;
   }
 }
+
+
+
+/* Main container style */
+.responsive-container {
+  max-width: 1660px;
+  margin: 0 auto; /* Centers the container */
+  padding: 0 20px; /* Adds some padding for smaller screens */
+  box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+  .responsive-container {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .responsive-container {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .responsive-container {
+    padding: 0 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .responsive-container {
+    padding: 0;
+  }
+}
