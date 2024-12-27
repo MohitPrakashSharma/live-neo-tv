@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
 
 interface MetaTagsProps {
   title?: string;
@@ -9,9 +10,9 @@ interface MetaTagsProps {
 }
 
 export const MetaTags = ({
-  title = "Watch Live TV on NeoTV+",
-  description = "Watch 100+ live streaming of Fast channels on NeoTV+.",
-  canonicalUrl = window.location.origin,
+  title,
+  description,
+  canonicalUrl,
   ogImage = "https://neotvapp.com/wp-content/uploads/2024/09/neo-tv-banner.jpg"
 }: MetaTagsProps) => {
   return (
