@@ -19,7 +19,7 @@ export const PopularChannelCard = ({ channel, onPlay }: PopularChannelCardProps)
       <img 
         src={channel.image} 
         alt={channel.channel_name}
-        className="w-full h-24 sm:h-28 md:h-32 object-cover transform group-hover:scale-105 transition-transform duration-300"
+        className="w-full h-24 sm:h-28 md:h-32 object-cover transform group-hover:scale-105 transition-transform "
         style={{ height : aspectHeight }}
       />
       {/* <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" /> */}

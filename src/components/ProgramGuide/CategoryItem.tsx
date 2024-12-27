@@ -13,7 +13,7 @@ interface CategoryItemProps {
 export const CategoryItem = ({ category, isSelected, onSelect }: CategoryItemProps) => {
   return (
     <button
-      className={`w-full px-3 py-2 text-left transition-all duration-200 flex items-center gap-2 rounded-lg ${
+      className={`w-full px-3 py-2 text-left duration-200 flex items-center gap-2 rounded-lg ${
         isSelected 
           ? 'bg-[#303030] text-[#e40876]' 
           : 'hover:bg-[#303030] hover:text-[#e40876]/80'

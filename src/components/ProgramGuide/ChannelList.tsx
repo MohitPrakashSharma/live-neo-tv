@@ -72,7 +72,7 @@ export const ChannelList = ({
 
 	return (
 		<div
-			className={`flex-1 overflow-y-auto transition-all duration-300 ${isExpanded ? 'max-h-[calc(100vh-100px)]' : 'max-h-[calc(100vh-500px)]'
+			className={`flex-1 overflow-y-auto  ${isExpanded ? 'max-h-[calc(100vh-100px)]' : 'max-h-[calc(100vh-500px)]'
 				} scrollbar-hide`}
 		>
 			<div className="space-y-3 pb-8">

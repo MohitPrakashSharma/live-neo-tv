@@ -10,7 +10,7 @@ interface ChannelItemProps {
 
 export const ChannelItem = ({ channel, isSelected, onSelect }: ChannelItemProps) => {
   return (
-    <div className={`group transition-all duration-200 transform ${
+    <div className={`group duration-200 transform ${
       // isSelected ? 'scale-[1.02]' : 'hover:scale-[1.01]'
       isSelected ? '' : 'hover:scale-[1.01]'
     }`}>

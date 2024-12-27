@@ -49,7 +49,7 @@ export const CategoryList = ({
 	}
 
 	return (
-		<div className={`w-full md:w-64 transition-all duration-300 ${isExpanded ? 'md:sticky md:top-20' : ''
+		<div className={`w-full md:w-64  ${isExpanded ? 'md:sticky md:top-20' : ''
 			} self-start`}>
 			<div className="bg-[#1e1e1e] rounded-lg overflow-hidden">
 				{/* Mobile Accordion Header */}
@@ -75,7 +75,7 @@ export const CategoryList = ({
 
 				{/* Categories List */}
 				<div
-					className={`relative md:block transition-all duration-200 ease-in-out ${isAccordionOpen ? 'block' : 'hidden'
+					className={`relative md:block ${isAccordionOpen ? 'block' : 'hidden'
 						}`}
 					onMouseEnter={() => setIsHovering(true)}
 					onMouseLeave={() => setIsHovering(false)}

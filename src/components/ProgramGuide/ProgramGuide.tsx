@@ -34,15 +34,12 @@ export const ProgramGuide = ({
   return (
     <div
       ref={containerRef}
-      className={`transition-all duration-300 ease-in-out ${
-        isExpanded ? 'fixed top-[264px] md:top-[284px] lg:top-[324px] left-0 right-0 bottom-0 bg-[#1a1a1a]' : ''
-      }`}
-      style={{ 
-        zIndex: isExpanded ? 40 : 1,
-        transform: `translateY(${isLocked ? '0' : 'translateY(0)'})`,
-      }}
+      // style={{ 
+      //   zIndex: isExpanded ? 40 : 1,
+      //   transform: `translateY(${isLocked ? '0' : 'translateY(0)'})`,
+      // }}
     >
-      <div className={`container-fluid mx-auto px-4 transition-all duration-300 ${
+      <div className={`container-fluid mx-auto px-4  ${
         isExpanded ? 'max-w-full md:max-w-[90%]' : ''
       }`}>
         <div className="flex flex-col md:flex-row gap-4 md:gap-6">
