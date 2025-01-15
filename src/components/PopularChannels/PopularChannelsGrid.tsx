@@ -18,7 +18,7 @@ export const PopularChannelsGrid = ({ onChannelSelect }: PopularChannelsGridProp
 
   if (loading) {
     return (
-      <div className="px-4 py-4">
+      <div className="px-4 py-2">
         <PopularChannelsSkeleton />
       </div>
     );
@@ -26,8 +26,8 @@ export const PopularChannelsGrid = ({ onChannelSelect }: PopularChannelsGridProp
 
   if (error) {
     return (
-      <div className="px-4 py-4">
-        <div className="flex items-center justify-center gap-2 mb-4">
+      <div className="px-4 py-2">
+        <div className="flex items-center justify-center gap-1 mb-1">
           <Flame className="w-5 h-5 md:w-6 md:h-6 text-[#e40876]" />
           <h2 className="text-lg md:text-xl font-bold">Popular Now</h2>
         </div>
@@ -37,9 +37,9 @@ export const PopularChannelsGrid = ({ onChannelSelect }: PopularChannelsGridProp
   }
 
   return (
-    <div className="relative px-4 py-4">
+    <div className="relative px-4 py-1 mb-2"> {/* Reduced bottom margin */}
       {/* Section Title */}
-      <div className="flex items-center justify-center gap-2 mb-4">
+      <div className="flex items-center justify-center gap-1 mb-2 sm:mb-[5px]"> {/* Adjusted bottom margin */}
         <Flame className="w-5 h-5 md:w-6 md:h-6 text-[#e40876]" />
         <h2 className="text-lg md:text-xl font-bold">Popular Now</h2>
       </div>
@@ -49,7 +49,7 @@ export const PopularChannelsGrid = ({ onChannelSelect }: PopularChannelsGridProp
         spaceBetween={10}
         slidesPerView={4}
         breakpoints={{
-          768: { slidesPerView: 3, spaceBetween: 15 },
+          768: { slidesPerView: 3, spaceBetween: 10 },
           1024: { slidesPerView: 7, spaceBetween: 20 },
           1440: { slidesPerView: 7, spaceBetween: 25 },
         }}

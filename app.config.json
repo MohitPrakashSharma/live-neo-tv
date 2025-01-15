@@ -1,0 +1,10 @@
+{
+  apps : [
+    {
+      name      : "NeoTv",
+      script    : "npx",
+      interpreter: "none",
+      args: "serve -p 4400 -T"
+    }
+  ]
+}

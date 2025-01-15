@@ -8,19 +8,26 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build-sitemap": "node sitemap-builder.js"
+    "build-sitemap": "node sitemap-builder.js",
+    "generate-sitemap": "node generateSitemap.js"
   },
   "dependencies": {
     "@videojs/themes": "^1.0.1",
+    "lottie-react": "^2.4.0",
     "lucide-react": "^0.344.0",
+    "plyr": "^3.7.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-ga4": "^2.1.0",
     "react-helmet-async": "^2.0.4",
+    "react-player": "^2.16.0",
     "react-router-dom": "^6.22.3",
+    "shaka-player": "^4.12.5",
     "swiper": "^11.1.15",
     "video.js": "^8.21.0",
     "videojs-contrib-ads": "^7.5.2",
-    "videojs-ima": "^2.3.0"
+    "videojs-ima": "^2.3.0",
+    "xmlbuilder": "^15.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

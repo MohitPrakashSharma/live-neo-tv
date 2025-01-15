@@ -71,13 +71,18 @@ export const Header = () => {
 							showLabel
 							onClick={handlePlayStore}
 						/>
-						<Link to="https://myaccount.neotvapp.com/">
-							<IconButton
-								icon={User}
-								label="My Account"
-								showLabel
-							/>
-						</Link>
+						<a 
+  href="https://myaccount.neotvapp.com/" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}
+>
+  <IconButton 
+    icon={User} 
+    label="My Account" 
+    showLabel 
+  />
+</a>
 					</div>
 				</div>
 			</header>

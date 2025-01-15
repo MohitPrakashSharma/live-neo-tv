@@ -1,13 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import 'videojs-contrib-ads';
 import 'videojs-ima';
 import 'videojs-ima/dist/videojs.ima.css';
-import '@videojs/themes/dist/fantasy/index.css';
 import type { Channel } from '../../types/channel';
-import type { PopularChannel } from '../../types/popular-channel';  
+import type { PopularChannel } from '../../types/popular-channel';
 import { VideoPlayerSkeleton } from '../Skeletons/VideoPlayerSkeleton';
+
+const NowPlaying = ({ channel }: { channel: Channel | PopularChannel }) => (
+  <div className="bg-[#262626] py-1.5 px-2">
+    <div className="container mx-auto px-4">
+      <h2 className="text-sm md:text-base font-semibold truncate">
+        <span className="text-[#e40876]">Now Playing: </span>
+        {channel.channel_name}
+      </h2>
+      <p className="text-xs text-gray-400">{channel.add_language}</p>
+    </div>
+  </div>
+);
 
 interface VideoPlayerProps {
   channel: Channel | PopularChannel | null;
@@ -27,7 +38,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
       script.onload = () => console.log('IMA SDK loaded');
       script.onerror = () => console.error('Failed to load IMA SDK');
       document.head.appendChild(script);
-    } 
+    }
   }, []);
 
   // Calculate and set container height based on aspect ratio
@@ -44,7 +55,7 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
         }
         const [widthRatio, heightRatio] = aspectRatioValue.split(':').map(Number);
         const height = width * (heightRatio / widthRatio);
- 
+
         containerRef.current.style.height = `${height}px`;
       }
     };
@@ -71,24 +82,18 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
       cleanup();
 
       const videoElement = document.createElement("video-js");
-      videoElement.classList.add('vjs-big-play-centered');
       videoRef.current.innerHTML = '';
       videoRef.current.appendChild(videoElement);
-      let aspectRatio;
-      if (window.innerWidth >= 768) {
-        aspectRatio = '32:9'; // Tablet and desktop
-      } else {
-        aspectRatio = '16:9'; // Mobile
-      }
 
+      const aspectRatio = window.innerWidth >= 768 ? '32:9' : '16:9';
 
       const player = videojs(videoElement, {
         controls: true,
-        fluid: false,
+        fluid: true,
         aspectRatio: aspectRatio,
         autoplay: true,
         playsinline: true,
-        muted: true,
+        muted: true, // Start muted to comply with autoplay policies
         preload: 'auto',
         html5: {
           hls: {
@@ -99,11 +104,20 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
         },
       });
 
+      // Wait until the player is ready and then unmute forcefully after a short delay
+      player.ready(() => {
+        setTimeout(() => {
+          player.muted(false); // Unmute the video
+          player.play(); // Force play after unmuting
+        }, 1600); // Delay to bypass some autoplay restrictions
+      });
+
       // Configure IMA ads
       const imaOptions = {
-        adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/106213651,121324381/NeoTv_App_Khabriya_Vast_Video&description_url=https%3A%2F%2Fneotvapp.com&tfcd=0&npa=0&sz=1x1%7C400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&idtype=adid&an=Neo%20TV&msid=com.playerhd.hdvideodownloader',
+        adTagUrl: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_preroll_skippable&sz=640x480&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=',
         debug: false,
       };
+
       player.ima(imaOptions);
 
       // Initialize and request ads
@@ -140,30 +154,17 @@ export const VideoPlayer = ({ channel }: VideoPlayerProps) => {
   }
 
   return (
-    <div className="fixed top-16 left-0 right-0 w-full z-30">
+    <div className="left-0 right-0 w-full z-20">
       <div className="bg-black">
         <div
           ref={containerRef}
           className="relative w-full"
-          style={{ aspectRatio: '32/9' }}
         >
-          <div ref={videoRef} className="absolute inset-0 video-js vjs-theme-fantasy"></div>
+          <div ref={videoRef} className="relative inset-0 video-js"></div>
         </div>
       </div>
 
-      {channel && (
-        <div className="bg-[#262626] py-1.5 px-2">
-          <div className="container mx-auto px-4">
-            <h2 className="text-sm md:text-base font-semibold truncate">
-              <span className="text-[#e40876]">Now Watching: </span>
-              {channel.channel_name}
-            </h2>
-            <p className="text-xs text-gray-400">
-              {channel.add_language}
-            </p>
-          </div>
-        </div>
-      )}
+      {channel && <NowPlaying channel={channel} />}
     </div>
   );
 };

@@ -14,7 +14,7 @@ export const PopularChannelsSkeleton = () => {
 					{Array.from({ length: 7 }).map((_, index) => (
 						<div key={index} className="animate-pulse flex flex-col items-center gap-2">
 							{/* Placeholder for channel image */}
-							<div className="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 lg:w-40 lg:h-40 bg-gray-700 rounded-md"></div>
+							<div className="w-20 h-16 sm:w-24 sm:h-24 md:w-36 md:h-24 lg:w-30 lg:h-30 bg-gray-700 rounded-md"></div>
 							{/* Placeholder for channel title */}
 							{/* <div className="w-16 sm:w-20 md:w-28 h-4 bg-gray-700 rounded"></div> */}
 						</div>

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { CategoryList } from './CategoryList';
 import { ChannelList } from './ChannelList';
-import { useProgramGuideScroll } from '../../hooks/useProgramGuideScroll';
 import { useCategories } from '../../hooks/useCategories';
 
 interface ProgramGuideProps {
@@ -17,7 +16,6 @@ export const ProgramGuide = ({
   onCategorySelect,
   onChannelSelect
 }: ProgramGuideProps) => {
-  const { containerRef, isExpanded, isLocked } = useProgramGuideScroll();
   const { categories, loading, initialCategory } = useCategories();
 
   useEffect(() => {
@@ -32,28 +30,18 @@ export const ProgramGuide = ({
   const categoryName = selectedCategoryData?.insert_language || initialCategory;
 
   return (
-    <div
-      ref={containerRef}
-      // style={{ 
-      //   zIndex: isExpanded ? 40 : 1,
-      //   transform: `translateY(${isLocked ? '0' : 'translateY(0)'})`,
-      // }}
-    >
-      <div className={`container-fluid mx-auto px-4  ${
-        isExpanded ? 'max-w-full md:max-w-[90%]' : ''
-      }`}>
-        <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+    <div>
+      <div className="container-fluid mx-auto px-2">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-4">
           <CategoryList
             selectedCategory={selectedCategory}
             onCategorySelect={onCategorySelect}
-            isExpanded={isExpanded}
           />
           <ChannelList
             key={categoryName}
             selectedCategory={selectedCategory}
             selectedChannel={selectedChannel}
             onChannelSelect={onChannelSelect}
-            isExpanded={isExpanded}
             categoryName={categoryName}
           />
         </div>
